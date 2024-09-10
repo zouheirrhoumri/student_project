@@ -178,47 +178,69 @@ void calculmoyenn(student t[])
     }
 }
 
-void stat_inscris(student t[]){
-    int c ;
+void stat_inscris(student t[])
+{
+    int c;
     for (int i = 0; i < dim; i++)
     {
         c++;
     }
-    printf("le nombre total est : %d " , c );
-    
+    printf("le nombre total est : %d ", c);
 }
 
-void stat_departmt(student t[]){
-    char dep[30] ;
+void stat_departmt(student t[])
+{
+    char dep[30];
     printf("entrez le departement :");
-    scanf("%s" ,&dep);
-    int count = 0 ;
+    scanf("%s", &dep);
+    int count = 0;
     for (int i = 0; i < dim; i++)
     {
-        if (strcmp(t[i].departement.name , dep) == 0)
+        if (strcmp(t[i].departement.name, dep) == 0)
         {
             count++;
         }
-        
     }
     printf("Le nombre d etudiants dans le departement '%s' est : %d\n", dep, count);
+}
+
+void stat_seuil(student t[])
+{
+    float seuil;
+    printf("\t\t entrez la seuil :");
+    scanf("%f", &seuil);
+    for (int i = 0; i < dim; i++)
+    {
+        if (t[i].note > seuil)
+        {
+            printf("\t\t le etudiant depassant la seuil : nom : %s avec note: %.2f \n", t[i].nom, t[i].note);
+        }
+    }
+}
+
+
+void tri_meilleur(student t[])
+{
+
+    for (int i = 1; i < dim; i++)
+    {
+        float temp = t[i].note;
+        int j = i - 1;
+        while (temp > t[j].note && j >= 0)
+        {
+            t[j+1].note = t[j].note;
+            j--;
+        }
+        t[j+1].note = temp;
+    }
+    for (int i = 0; i < dim; i++)
+    {
+        printf("%.2f \n ",t[i].note);
+    
+    }
     
 }
 
-void stat_seuil(student t[]){
-    float seuil ;
-    printf("\t\t entrez la seuil :");
-    scanf("%f" ,&seuil);
-    for (int i = 0; i < dim; i++)
-    {
-       if (t[i].note > seuil)
-       {
-         printf("\t\t le etudiant depassant la seuil : nom : %s avec note: %.2f \n" , t[i].nom , t[i].note);
-       }
-       
-    }
-    
-}
 
 int menu_stats()
 {
@@ -249,10 +271,10 @@ int menu_stats()
             stat_seuil(t);
             system("pause");
             break;
-        // case 4:
-        //     stats3(t);
-        //     system("pause");
-        //     break;
+        case 4:
+            stat_meilleur(t);
+            system("pause");
+            break;
         // case 5:
         //     stats3(t);
         //     system("pause");
@@ -303,7 +325,7 @@ int menu()
         case 5:
             menu_stats();
             break;
-         case 6:
+        case 6:
             supprimer(t);
             break;
         case 7:
