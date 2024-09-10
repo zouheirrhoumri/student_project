@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <math.h>
 
 typedef struct
 {
@@ -186,6 +188,22 @@ void stat_inscris(student t[]){
     
 }
 
+void stat_departmt(student t[]){
+    char dep[30] ;
+    printf("entrez le departement :");
+    scanf("%s" ,&dep);
+    int count = 0 ;
+    for (int i = 0; i < dim; i++)
+    {
+        if (strcmp(t[i].departement.name , dep) == 0)
+        {
+            count++;
+        }
+        
+    }
+    printf("Le nombre d etudiants dans le departement '%s' est : %d\n", dep, count);
+    
+}
 
 
 int menu_stats()
@@ -195,24 +213,24 @@ int menu_stats()
     {
         printf("\t\tMenu stats :\n");
         printf("\t\t1. le nombre total d etudiants inscrits.\n");
-        printf("\t\t2. le nombre d'étudiants dans chaque département\n");
-        printf("\t\t3. les étudiants ayant une moyenne générale supérieure à un certain seuil.\n");
-        printf("\t\t4.les 3 étudiants ayant les meilleures notes.\n");
-        printf("\t\t5. le nombre d'étudiants ayant réussi dans chaque département.\n");
+        printf("\t\t2. le nombre d etudiants dans chaque departement\n");
+        printf("\t\t3. les etudiants ayant une moyenne generale superieure à un certain seuil.\n");
+        printf("\t\t4.les 3 etudiants ayant les meilleures notes.\n");
+        printf("\t\t5. le nombre d'etudiants ayant reussi dans chaque departement.\n");
         printf("\t\t6. retour \n");
         printf("\t\tEnter votre choix (1-4): ");
         scanf("%d", &choix);
 
         switch (choix)
         {
-        // case 1:
-        //     stats1(t);
-        //     system("pause");
-        //     break;
-        // case 2:
-        //     stats2(t);
-        //     system("pause");
-        //     break;
+        case 1:
+            stat_inscris(t);
+            system("pause");
+            break;
+        case 2:
+            stat_departmt(t);
+            system("pause");
+            break;
         // case 3:
         //     stats3(t);
         //     system("pause");
