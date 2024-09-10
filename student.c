@@ -40,3 +40,15 @@ void ajouter_student()
     dim++;
      
 }
+
+void ajouter_plus(student t[])
+{
+    int nbr, p;
+    printf("\t\tcombien vous voulez ajouter :");
+    scanf("%d", &nbr);
+    p = nbr + dim;
+    for (int i = dim; i < p; i++)
+    {
+        ajouter_student(t);
+    }
+}
