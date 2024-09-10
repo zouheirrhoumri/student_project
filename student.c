@@ -20,26 +20,28 @@ typedef struct student
 
 student t[100];
 int dim = 0;
+void ajouter_student(student t[]) {
+    printf("\t\tEntrer le numero unique : ");
+    scanf("%d", &t[dim].id);  
 
-void ajouter_student()
-{
+    printf("\t\tNom : ");
+    scanf(" %[^\n]", t[dim].nom);  
 
-    printf("\t\tentrer le numero unique : ");
-    scanf(" %d", t[dim].id);
-    printf("\t\tnom : ");
-    scanf(" %[^\n]", t[dim].nom);
-    printf("\t\tprenom : ");
-    scanf(" %[^\n]", t[dim].prenom);
-    printf("\t\tbirthdate : ");
-    scanf(" %[^\n]", t[dim].birthdate);
-    printf("\t\t departement : ");
-    scanf(" %[^\n]", t[dim].departement.name);
-    printf("\t\t moyenne generale : ");
-    scanf(" %f", t[dim].note);
+    printf("\t\tPrenom : ");
+    scanf(" %[^\n]", t[dim].prenom); 
 
-    dim++;
-     
+    printf("\t\tBirthdate (dd/mm/yyyy) : ");
+    scanf(" %[^\n]", t[dim].birthdate); 
+
+    printf("\t\tDepartement : ");
+    scanf(" %[^\n]", t[dim].departement.name);  
+
+    printf("\t\tMoyenne generale : ");
+    scanf("%f", &t[dim].note);  
+
+    dim++; 
 }
+
 
 void ajouter_plus(student t[])
 {
@@ -51,4 +53,26 @@ void ajouter_plus(student t[])
     {
         ajouter_student(t);
     }
+}
+
+void afficher_student()
+{
+    printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+    printf("\t\t| Id |        nom           |      prenom     |    date de naissance   |    departement    |   moyenne generale |\n");
+    printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+
+    for (int i = 0; i < dim; i++)
+    {
+        printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-5.2f |\n",
+               t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+    }
+
+    printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+}
+
+int main(){
+
+    ajouter_student(t);
+
+    return 0 ;
 }
