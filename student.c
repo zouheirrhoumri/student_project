@@ -83,7 +83,7 @@ void supprimer(student t[])
 
     for (int i = 0; i < dim; i++)
     {
-        if (t[dim].id == identifiant)
+        if (t[i].id == identifiant)
         {
             c++;
             for (int j = i; j < dim - 1; j++)
@@ -108,7 +108,7 @@ void modifier(student t[])
 
     for (int i = 0; i < dim; i++)
     {
-        if (t[dim].id == identifiant)
+        if (t[i].id == identifiant)
         {
             c++;
             printf("Modifier les informations de l'etudiant %d :\n", identifiant);
@@ -148,8 +148,7 @@ void calculmoyenn(student t[])
             sum = sum + t[i].note;
         }
     }
-   
-    // printf("la moyenn est %.2f : ", moyenne);
+
     if (count > 0)
     {
         float moyenne = sum / count;
@@ -160,7 +159,6 @@ void calculmoyenn(student t[])
         printf("Aucun etudiant trouve pour le departement %s.\n", dep);
     }
 
-    
     for (int i = 0; i < dim; i++)
     {
         sum += t[i].note;
@@ -170,7 +168,7 @@ void calculmoyenn(student t[])
     if (count > 0)
     {
         float moyenne = sum / count;
-        printf("La moyenne generale pour l'universite est %.2f\n",  moyenne);
+        printf("La moyenne generale pour l'universite est %.2f\n", moyenne);
     }
     else
     {
@@ -178,9 +176,66 @@ void calculmoyenn(student t[])
     }
 }
 
+void stat_inscris(student t[]){
+    int c ;
+    for (int i = 0; i < dim; i++)
+    {
+        c++;
+    }
+    printf("le nombre total est : %d " , c );
+    
+}
 
 
 
+int menu_stats()
+{
+    int choix;
+    while (1)
+    {
+        printf("\t\tMenu stats :\n");
+        printf("\t\t1. le nombre total d etudiants inscrits.\n");
+        printf("\t\t2. le nombre d'étudiants dans chaque département\n");
+        printf("\t\t3. les étudiants ayant une moyenne générale supérieure à un certain seuil.\n");
+        printf("\t\t4.les 3 étudiants ayant les meilleures notes.\n");
+        printf("\t\t5. le nombre d'étudiants ayant réussi dans chaque département.\n");
+        printf("\t\t6. retour \n");
+        printf("\t\tEnter votre choix (1-4): ");
+        scanf("%d", &choix);
+
+        switch (choix)
+        {
+        // case 1:
+        //     stats1(t);
+        //     system("pause");
+        //     break;
+        // case 2:
+        //     stats2(t);
+        //     system("pause");
+        //     break;
+        // case 3:
+        //     stats3(t);
+        //     system("pause");
+        //     break;
+        // case 4:
+        //     stats3(t);
+        //     system("pause");
+        //     break;
+        // case 5:
+        //     stats3(t);
+        //     system("pause");
+        //     break;
+        case 6:
+            return 0;
+            break;
+        default:
+            printf("\t\terreur, entrer en entier de 1 a 4.\n");
+            return 0;
+        }
+    }
+
+    return 0;
+}
 
 int menu()
 {
@@ -191,9 +246,11 @@ int menu()
         printf("\t\t1. ajouter un seul etudiant \n");
         printf("\t\t2. ajouter plusieur etudiant \n");
         printf("\t\t3. menu affichage \n");
-        printf("\t\t4. menu gestion\n");
+        printf("\t\t4. calcul de moyenne\n");
         printf("\t\t5. statistiques\n");
-        printf("\t\t6. quitter \n");
+        printf("\t\t6. supression\n");
+        printf("\t\t7. modification\n");
+        printf("\t\t8. quitter \n");
         printf("\t\tEnter votre choix (1-6): ");
         scanf("%d", &choix);
 
@@ -211,10 +268,16 @@ int menu()
         case 4:
             calculmoyenn(t);
             break;
-        // case 5:
-        //     menu_stats();
-        //     break;
-        case 6:
+        case 5:
+            menu_stats();
+            break;
+         case 6:
+            supprimer(t);
+            break;
+        case 7:
+            modifier(t);
+            break;
+        case 8:
             return 0;
         default:
             printf("\t\terreur, entrer en entier de 1 a 6.\n");
