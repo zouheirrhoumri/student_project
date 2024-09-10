@@ -205,6 +205,20 @@ void stat_departmt(student t[]){
     
 }
 
+void stat_seuil(student t[]){
+    float seuil ;
+    printf("\t\t entrez la seuil :");
+    scanf("%f" ,&seuil);
+    for (int i = 0; i < dim; i++)
+    {
+       if (t[i].note > seuil)
+       {
+         printf("\t\t le etudiant depassant la seuil : nom : %s avec note: %.2f \n" , t[i].nom , t[i].note);
+       }
+       
+    }
+    
+}
 
 int menu_stats()
 {
@@ -231,10 +245,10 @@ int menu_stats()
             stat_departmt(t);
             system("pause");
             break;
-        // case 3:
-        //     stats3(t);
-        //     system("pause");
-        //     break;
+        case 3:
+            stat_seuil(t);
+            system("pause");
+            break;
         // case 4:
         //     stats3(t);
         //     system("pause");
