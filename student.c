@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+
 typedef struct
 {
     int departmentID;
@@ -20,6 +22,7 @@ typedef struct student
 
 student t[100];
 int dim = 0;
+
 void ajouter_student(student t[])
 {
     printf("\t\tEntrer le numero unique : ");
@@ -119,7 +122,7 @@ void modifier(student t[])
             scanf(" %[^\n]", t[i].departement.name);
             printf("\t\tMoyenne generale : ");
             scanf("%f", &t[i].note);
-            printf("Les informations de l'etudiant %d ont ete modifiees avec succes !\n", id);
+            printf("Les informations de l'etudiant %d ont ete modifiees avec succes !\n", identifiant);
             break;
         }
     }
@@ -129,14 +132,34 @@ void modifier(student t[])
         afficher_student(t);
 }
 
+void calculmoyenn(student t[])
+{
+    char dep[30];
+    int sum = 0;
+    int count = 0;
+    printf("entrez le departement : ");
+    scanf("%s", &dep);
+    for (int i = 0; i < dim; i++)
+    {
+
+        if (strcmp(t[i].departement.name, dep) == 0)
+        {
+            count++;
+            sum = sum + t[i].note;
+        }
+    }
+    float moyenne = sum / count;
+    printf("la moyenn est %.2f : ", moyenne);
+}
+
 int menu()
 {
     int choix;
     while (1)
     {
         printf("\t\tMenu:\n");
-        printf("\t\t1. ajouter une seul tache \n");
-        printf("\t\t2. ajouter plusieur taches \n");
+        printf("\t\t1. ajouter un seul etudiant \n");
+        printf("\t\t2. ajouter plusieur etudiant \n");
         printf("\t\t3. menu affichage \n");
         printf("\t\t4. menu gestion\n");
         printf("\t\t5. statistiques\n");
@@ -155,9 +178,9 @@ int menu()
         case 3:
             afficher_student();
             break;
-        // case 4:
-        //     menu_gestion();
-        //     break;
+        case 4:
+            calculmoyenn(t);
+            break;
         // case 5:
         //     menu_stats();
         //     break;
