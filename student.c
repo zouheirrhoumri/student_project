@@ -218,7 +218,6 @@ void stat_seuil(student t[])
     }
 }
 
-
 void tri_meilleur(student t[])
 {
 
@@ -228,20 +227,62 @@ void tri_meilleur(student t[])
         int j = i - 1;
         while (temp > t[j].note && j >= 0)
         {
-            t[j+1].note = t[j].note;
+            t[j + 1].note = t[j].note;
             j--;
         }
-        t[j+1].note = temp;
+        t[j + 1].note = temp;
     }
     for (int i = 0; i < dim; i++)
     {
-        printf("%.2f \n ",t[i].note);
-    
+        printf("%.2f \n ", t[i].note);
+    }
+}
+
+void stat_meilleurs()
+{
+    tri_meilleur(t);
+
+    printf("Les meilleurs 3 eleves sont :\n");
+    for (int i = 0; i < 3 && i < dim; i++)
+    {
+        printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+        printf("\t\t| Id |        nom           |      prenom     |    date de naissance   |    departement    |   moyenne generale |\n");
+        printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+
+        for (int i = 0; i < dim; i++)
+        {
+            printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
+                   t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+        }
+
+        printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+    }
+}
+
+void stat_reussit()
+{
+    char dep[30];
+    int count = 0;
+    printf("entrez le departement : ");
+    scanf("%s", &dep);
+    for (int i = 0; i < dim; i++)
+    {
+        if (strcmp(t[i].departement.name, dep) == 0 && t[i].note > 10)
+        {
+            count++;
+        }
+        
+    }
+    if (count > 0)
+    {
+        printf("La nombre de reussis pour le departement %s est %d\n", dep, count);
+    }
+    else
+    {
+        printf("Aucun etudiant trouve pour le departement %s.\n", dep);
     }
     
 }
-
-
 int menu_stats()
 {
     int choix;
@@ -272,7 +313,7 @@ int menu_stats()
             system("pause");
             break;
         case 4:
-            stat_meilleur(t);
+            stat_meilleurs(t);
             system("pause");
             break;
         // case 5:
