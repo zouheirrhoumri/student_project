@@ -70,13 +70,13 @@ void afficher_student()
     printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
 }
 
-void supprimer()
+void supprimer(student t[])
 {
 
     int identifiant, c;
 
-    printf("\t\t veuillez enter numero unique d etudiant : ");
-    scanf("%d", identifiant);
+    printf("\t\t enter numero unique d etudiant : ");
+    scanf("%d", &identifiant);
 
     for (int i = 0; i < dim; i++)
     {
@@ -88,6 +88,39 @@ void supprimer()
                 t[j] = t[j + 1];
             }
             dim--;
+        }
+    }
+    if (c == 0)
+        printf("\t\tIl n\'y a pas de tache avec l\'Id %d\n", identifiant);
+    else
+        afficher_student(t);
+}
+
+void modifier(student t[])
+{
+    int identifiant, c;
+
+    printf("\t\t enter numero unique d etudiant : ");
+    scanf("%d", &identifiant);
+
+    for (int i = 0; i < dim; i++)
+    {
+        if (t[dim].id == identifiant)
+        {
+            c++;
+            printf("Modifier les informations de l'etudiant %d :\n", identifiant);
+            printf("\t\tNom : ");
+            scanf(" %[^\n]", t[i].nom);
+            printf("\t\tPrenom : ");
+            scanf(" %[^\n]", t[i].prenom);
+            printf("\t\tBirthdate (dd/mm/yyyy) : ");
+            scanf(" %[^\n]", t[i].birthdate);
+            printf("\t\tDepartement : ");
+            scanf(" %[^\n]", t[i].departement.name);
+            printf("\t\tMoyenne generale : ");
+            scanf("%f", &t[i].note);
+            printf("Les informations de l'etudiant %d ont ete modifiees avec succes !\n", id);
+            break;
         }
     }
     if (c == 0)
