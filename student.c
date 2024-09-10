@@ -148,9 +148,39 @@ void calculmoyenn(student t[])
             sum = sum + t[i].note;
         }
     }
-    float moyenne = sum / count;
-    printf("la moyenn est %.2f : ", moyenne);
+   
+    // printf("la moyenn est %.2f : ", moyenne);
+    if (count > 0)
+    {
+        float moyenne = sum / count;
+        printf("La moyenne generale pour le departement %s est %.2f\n", dep, moyenne);
+    }
+    else
+    {
+        printf("Aucun etudiant trouve pour le departement %s.\n", dep);
+    }
+
+    
+    for (int i = 0; i < dim; i++)
+    {
+        sum += t[i].note;
+        count++;
+    }
+
+    if (count > 0)
+    {
+        float moyenne = sum / count;
+        printf("La moyenne generale pour l'universite est %.2f\n",  moyenne);
+    }
+    else
+    {
+        printf("Aucun etudiant dans l'universite.\n");
+    }
 }
+
+
+
+
 
 int menu()
 {
