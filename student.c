@@ -20,28 +20,28 @@ typedef struct student
 
 student t[100];
 int dim = 0;
-void ajouter_student(student t[]) {
+void ajouter_student(student t[])
+{
     printf("\t\tEntrer le numero unique : ");
-    scanf("%d", &t[dim].id);  
+    scanf("%d", &t[dim].id);
 
     printf("\t\tNom : ");
-    scanf(" %[^\n]", t[dim].nom);  
+    scanf(" %[^\n]", t[dim].nom);
 
     printf("\t\tPrenom : ");
-    scanf(" %[^\n]", t[dim].prenom); 
+    scanf(" %[^\n]", t[dim].prenom);
 
     printf("\t\tBirthdate (dd/mm/yyyy) : ");
-    scanf(" %[^\n]", t[dim].birthdate); 
+    scanf(" %[^\n]", t[dim].birthdate);
 
     printf("\t\tDepartement : ");
-    scanf(" %[^\n]", t[dim].departement.name);  
+    scanf(" %[^\n]", t[dim].departement.name);
 
     printf("\t\tMoyenne generale : ");
-    scanf("%f", &t[dim].note);  
+    scanf("%f", &t[dim].note);
 
-    dim++; 
+    dim++;
 }
-
 
 void ajouter_plus(student t[])
 {
@@ -63,11 +63,37 @@ void afficher_student()
 
     for (int i = 0; i < dim; i++)
     {
-        printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-5.2f |\n",
+        printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
                t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
     }
 
     printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+}
+
+void supprimer()
+{
+
+    int identifiant, c;
+
+    printf("\t\t veuillez enter numero unique d etudiant : ");
+    scanf("%d", identifiant);
+
+    for (int i = 0; i < dim; i++)
+    {
+        if (t[dim].id == identifiant)
+        {
+            c++;
+            for (int j = i; j < dim - 1; j++)
+            {
+                t[j] = t[j + 1];
+            }
+            dim--;
+        }
+    }
+    if (c == 0)
+        printf("\t\tIl n\'y a pas de tache avec l\'Id %d\n", identifiant);
+    else
+        afficher_student(t);
 }
 
 int menu()
@@ -113,9 +139,10 @@ int menu()
     return 0;
 }
 
-int main(){
+int main()
+{
 
     menu();
 
-    return 0 ;
+    return 0;
 }
