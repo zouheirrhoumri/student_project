@@ -5,9 +5,7 @@
 
 typedef struct
 {
-    int departmentID;
     char name[30];
-    int studentCount;
 } Department;
 
 typedef struct student
@@ -44,7 +42,11 @@ void ajouter_student(student t[])
     scanf(" %[^\n]", t[dim].departement.name);
 
     printf("\t\tMoyenne generale : ");
-    scanf("%f", &t[dim].note);
+    if (scanf("%f", &t[dim].note) != 1 || t[dim].note < 0 || t[dim].note > 20)
+    {
+        printf("Note invalide. Reessayez.\n");
+        return;
+    }
 
     dim++;
 }
@@ -97,7 +99,7 @@ void supprimer(student t[])
         }
     }
     if (c == 0)
-        printf("\t\tIl n\'y a pas de tache avec l\'Id %d\n", identifiant);
+        printf("\t\tIl n\'y a pas de etudiant avec l\'Id %d\n", identifiant);
     else
         afficher_student(t);
 }
@@ -186,7 +188,7 @@ void stat_inscris(student t[])
     {
         c++;
     }
-    printf("le nombre total est : %d ", c);
+    printf("le nombre total est : %d \n", c);
 }
 
 void stat_departmt(student t[])
@@ -208,14 +210,20 @@ void stat_departmt(student t[])
 void stat_seuil(student t[])
 {
     float seuil;
+    int c; 
     printf("\t\t entrez la seuil :");
     scanf("%f", &seuil);
     for (int i = 0; i < dim; i++)
     {
         if (t[i].note > seuil)
         {
+            c=1;
             printf("\t\t le etudiant depassant la seuil : nom : %s avec note: %.2f \n", t[i].nom, t[i].note);
         }
+        printf("il ya pas d etudiant avec cette note");
+    }
+    if (c != 1) {
+        printf("Aucun etudiant avec une note superieure au seuil %.2f.\n", seuil);
     }
 }
 
@@ -261,7 +269,7 @@ void tri_meilleur(student t[], int v)
         t[j + 1].note = temp;
     }
 
-    if (v)  
+    if (v)
     {
         for (int i = 0; i < dim; i++)
         {
@@ -316,19 +324,20 @@ void tri_reussit(student t[])
 
 void stat_meilleurs(student t[])
 {
-    tri_meilleur(t , 0);  
+    tri_meilleur(t, 0);
 
     printf("Les meilleurs 3 eleves sont :\n");
-    for (int i = 0; i < 3 && i < dim; i++)  
+    for (int i = 0; i < 3 && i < dim; i++)
     {
         printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
-            t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+               t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
     }
 }
 
 void stat_reussit()
 {
     char dep[30];
+    int ver = 0;
     int count = 0;
     printf("entrez le departement : ");
     scanf("%s", &dep);
@@ -374,7 +383,7 @@ void recherche_departement()
         if (strcmp(t[i].departement.name, dep) == 0)
         {
             printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
-             t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+                   t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
         }
     }
 }
@@ -448,7 +457,7 @@ int menu_triage()
             tri_alphabetique(t);
             break;
         case 2:
-            tri_meilleur(t ,1);
+            tri_meilleur(t, 1);
             break;
         case 3:
             tri_reussit(t);
