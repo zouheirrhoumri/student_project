@@ -247,9 +247,8 @@ void note_description(float note, char description[])
     }
 }
 
-void tri_meilleur(student t[])
+void tri_meilleur(student t[], int v)
 {
-
     for (int i = 1; i < dim; i++)
     {
         float temp = t[i].note;
@@ -261,10 +260,14 @@ void tri_meilleur(student t[])
         }
         t[j + 1].note = temp;
     }
-    for (int i = 0; i < dim; i++)
+
+    if (v)  
     {
-        printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
-               t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+        for (int i = 0; i < dim; i++)
+        {
+            printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
+                   t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+        }
     }
 }
 
@@ -311,24 +314,15 @@ void tri_reussit(student t[])
     }
 }
 
-void stat_meilleurs()
+void stat_meilleurs(student t[])
 {
-    tri_meilleur(t);
+    tri_meilleur(t , 0);  
 
     printf("Les meilleurs 3 eleves sont :\n");
-    for (int i = 0; i < 3 && i < dim; i++)
+    for (int i = 0; i < 3 && i < dim; i++)  
     {
-        printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
-        printf("\t\t| Id |        nom           |      prenom     |    date de naissance   |    departement    |   moyenne generale |\n");
-        printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
-
-        for (int i = 0; i < dim; i++)
-        {
-            printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
-                   t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
-        }
-
-        printf("\t\t+-------------------------------------------------------------------------------------------------------------------+\n");
+        printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
+            t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
     }
 }
 
@@ -454,7 +448,7 @@ int menu_triage()
             tri_alphabetique(t);
             break;
         case 2:
-            tri_meilleur(t);
+            tri_meilleur(t ,1);
             break;
         case 3:
             tri_reussit(t);
