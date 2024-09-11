@@ -219,18 +219,30 @@ void stat_seuil(student t[])
     }
 }
 
-void note_description(float note, char description[]) {
-    if (note >= 18) {
+void note_description(float note, char description[])
+{
+    if (note >= 18)
+    {
         strcpy(description, "Excellent");
-    } else if (note >= 16) {
+    }
+    else if (note >= 16)
+    {
         strcpy(description, "Tres Bien");
-    } else if (note >= 14) {
+    }
+    else if (note >= 14)
+    {
         strcpy(description, "Bien");
-    } else if (note >= 12) {
+    }
+    else if (note >= 12)
+    {
         strcpy(description, "Passable");
-    } else if (note >= 10) {
+    }
+    else if (note >= 10)
+    {
         strcpy(description, "Passable");
-    } else {
+    }
+    else
+    {
         strcpy(description, "echou");
     }
 }
@@ -291,7 +303,8 @@ void tri_reussit(student t[])
         t[j + 1].note = temp;
     }
     char description[20];
-    for (int i = 0; i < dim; i++) {
+    for (int i = 0; i < dim; i++)
+    {
         note_description(t[i].note, description);
         printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f | %-12s |\n",
                t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note, description);
@@ -339,6 +352,21 @@ void stat_reussit()
     else
     {
         printf("Aucun etudiant trouve pour le departement %s.\n", dep);
+    }
+}
+
+void recherche()
+{
+    char name[30];
+    printf("entrez le nom pour rechercher :");
+    scanf("%s", &name);
+    for (int i = 0; i < dim; i++)
+    {
+        if (strcmp(t[i].nom, name) == 0)
+        {
+            printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
+                   t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+        }
     }
 }
 
