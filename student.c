@@ -259,6 +259,14 @@ void tri_alphabetique(student t[])
     afficher_student(t);
 }
 
+void tri_reussit(student t[]){
+    if (t[dim].note > 10)
+    {
+        tri_meilleur(t);
+    }
+    
+}
+
 void stat_meilleurs()
 {
     tri_meilleur(t);
@@ -368,15 +376,15 @@ int menu_triage()
 
         switch (choix)
         {
-        // case 1:
-        //     modifier_desc(t);
-        //     break;
+        case 1:
+            tri_alphabetique(t);
+            break;
         case 2:
             tri_meilleur(t);
             break;
-        // case 3:
-        //     modifier_deadline(t);
-        //     break;
+        case 3:
+            tri_reussit(t);
+            break;
         case 4:
             return 0;
             break;
