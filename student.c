@@ -370,6 +370,21 @@ void recherche()
     }
 }
 
+void recherche_departement()
+{
+    char dep[30];
+    printf("entrez le departement");
+    scanf("%s", &dep);
+    for (int i = 0; i < dim; i++)
+    {
+        if (strcmp(t[i].departement.name, dep) == 0)
+        {
+            printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
+             t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
+        }
+    }
+}
+
 int menu_stats()
 {
     int choix;
@@ -470,7 +485,8 @@ int menu()
         printf("\t\t6. menu triage\n");
         printf("\t\t7. supression\n");
         printf("\t\t8. modification\n");
-        printf("\t\t9. quitter \n");
+        printf("\t\t9. recherche\n");
+        printf("\t\t10. quitter \n");
         printf("\t\tEnter votre choix (1-6): ");
         scanf("%d", &choix);
 
@@ -501,6 +517,9 @@ int menu()
             modifier(t);
             break;
         case 9:
+            recherche(t);
+            break;
+        case 10:
             return 0;
         default:
             printf("\t\terreur, entrer en entier de 1 a 6.\n");
