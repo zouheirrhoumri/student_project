@@ -24,11 +24,12 @@ typedef struct student
 
 student t[100];
 int dim = 0;
+int ID = 0;
 
 void ajouter_student(student t[])
 {
-    printf("\t\tEntrer le numero unique : ");
-    scanf("%d", &t[dim].id);
+
+    t[dim].id = ID + 1;
 
     printf("\t\tNom : ");
     scanf(" %[^\n]", t[dim].nom);
@@ -218,6 +219,22 @@ void stat_seuil(student t[])
     }
 }
 
+void note_description(float note, char description[]) {
+    if (note >= 18) {
+        strcpy(description, "Excellent");
+    } else if (note >= 16) {
+        strcpy(description, "Tres Bien");
+    } else if (note >= 14) {
+        strcpy(description, "Bien");
+    } else if (note >= 12) {
+        strcpy(description, "Passable");
+    } else if (note >= 10) {
+        strcpy(description, "Passable");
+    } else {
+        strcpy(description, "echou");
+    }
+}
+
 void tri_meilleur(student t[])
 {
 
@@ -234,7 +251,8 @@ void tri_meilleur(student t[])
     }
     for (int i = 0; i < dim; i++)
     {
-        printf("%.2f \n ", t[i].note);
+        printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f |\n",
+               t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note);
     }
 }
 
@@ -259,12 +277,25 @@ void tri_alphabetique(student t[])
     afficher_student(t);
 }
 
-void tri_reussit(student t[]){
-    if (t[dim].note > 10)
+void tri_reussit(student t[])
+{
+    for (int i = 1; i < dim; i++)
     {
-        tri_meilleur(t);
+        float temp = t[i].note;
+        int j = i - 1;
+        while (temp > t[j].note && j >= 0)
+        {
+            t[j + 1].note = t[j].note;
+            j--;
+        }
+        t[j + 1].note = temp;
     }
-    
+    char description[20];
+    for (int i = 0; i < dim; i++) {
+        note_description(t[i].note, description);
+        printf("\t\t| %-2d | %-20s | %-15s | %-15s | %-15s | %-20.2f | %-12s |\n",
+               t[i].id, t[i].nom, t[i].prenom, t[i].birthdate, t[i].departement.name, t[i].note, description);
+    }
 }
 
 void stat_meilleurs()
@@ -408,9 +439,10 @@ int menu()
         printf("\t\t3. menu affichage \n");
         printf("\t\t4. calcul de moyenne\n");
         printf("\t\t5. statistiques\n");
-        printf("\t\t6. supression\n");
-        printf("\t\t7. modification\n");
-        printf("\t\t8. quitter \n");
+        printf("\t\t6. menu triage\n");
+        printf("\t\t7. supression\n");
+        printf("\t\t8. modification\n");
+        printf("\t\t9. quitter \n");
         printf("\t\tEnter votre choix (1-6): ");
         scanf("%d", &choix);
 
@@ -432,12 +464,15 @@ int menu()
             menu_stats();
             break;
         case 6:
-            supprimer(t);
+            menu_triage();
             break;
         case 7:
-            modifier(t);
+            supprimer(t);
             break;
         case 8:
+            modifier(t);
+            break;
+        case 9:
             return 0;
         default:
             printf("\t\terreur, entrer en entier de 1 a 6.\n");
