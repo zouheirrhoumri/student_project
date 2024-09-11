@@ -238,6 +238,27 @@ void tri_meilleur(student t[])
     }
 }
 
+void tri_alphabetique(student t[])
+{
+    student temp;
+
+    for (int i = 0; i < dim; i++)
+    {
+        for (int j = i + 1; j < dim; j++)
+        {
+            if (strcmp(t[i].nom, t[j].nom) > 0)
+            {
+                temp = t[i];
+                t[i] = t[j];
+                t[j] = temp;
+            }
+        }
+    }
+
+    printf("\t\tLes taches triees alphabitique : \n");
+    afficher_student(t);
+}
+
 void stat_meilleurs()
 {
     tri_meilleur(t);
@@ -271,7 +292,6 @@ void stat_reussit()
         {
             count++;
         }
-        
     }
     if (count > 0)
     {
@@ -281,8 +301,8 @@ void stat_reussit()
     {
         printf("Aucun etudiant trouve pour le departement %s.\n", dep);
     }
-    
 }
+
 int menu_stats()
 {
     int choix;
@@ -291,9 +311,9 @@ int menu_stats()
         printf("\t\tMenu stats :\n");
         printf("\t\t1. le nombre total d etudiants inscrits.\n");
         printf("\t\t2. le nombre d etudiants dans chaque departement\n");
-        printf("\t\t3. les etudiants ayant une moyenne generale superieure à un certain seuil.\n");
-        printf("\t\t4.les 3 etudiants ayant les meilleures notes.\n");
-        printf("\t\t5. le nombre d'etudiants ayant reussi dans chaque departement.\n");
+        printf("\t\t3. les etudiants ayant une moyenne generale superieure a un certain seuil.\n");
+        printf("\t\t4. les 3 etudiants ayant les meilleures notes.\n");
+        printf("\t\t5. le nombre d etudiants ayant reussi dans chaque departement.\n");
         printf("\t\t6. retour \n");
         printf("\t\tEnter votre choix (1-4): ");
         scanf("%d", &choix);
@@ -316,15 +336,52 @@ int menu_stats()
             stat_meilleurs(t);
             system("pause");
             break;
-        // case 5:
-        //     stats3(t);
-        //     system("pause");
-        //     break;
+        case 5:
+            stat_reussit(t);
+            system("pause");
+            break;
         case 6:
             return 0;
             break;
         default:
             printf("\t\terreur, entrer en entier de 1 a 4.\n");
+            return 0;
+        }
+    }
+
+    return 0;
+}
+
+int menu_triage()
+{
+
+    int choix;
+    while (1)
+    {
+        printf("\t\tMenu triage :\n");
+        printf("\t\t1. tri alphabetique.\n");
+        printf("\t\t2. tri moyenne general\n");
+        printf("\t\t3. tri par status de reussite\n");
+        printf("\t\t4. retour \n");
+        printf("\t\tEnter votre choix (1-3): ");
+        scanf("%d", &choix);
+
+        switch (choix)
+        {
+        // case 1:
+        //     modifier_desc(t);
+        //     break;
+        case 2:
+            tri_meilleur(t);
+            break;
+        // case 3:
+        //     modifier_deadline(t);
+        //     break;
+        case 4:
+            return 0;
+            break;
+        default:
+            printf("\t\terreur, entrer en entier de 1 a 7.\n");
             return 0;
         }
     }
