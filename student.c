@@ -25,7 +25,7 @@ int dim = 0;
 int ID = 0;
 
 void ajouter_student(student t[])
-{
+{ 
 
     t[dim].id = ID + 1;
 
@@ -193,18 +193,41 @@ void stat_inscris(student t[])
 
 void stat_departmt(student t[])
 {
-    char dep[30];
-    printf("entrez le departement :");
-    scanf("%s", &dep);
-    int count = 0;
-    for (int i = 0; i < dim; i++)
+   char departement[100][50];
+   int count[100];
+   int totalD = 0;
+
+   for (int i = 0; i < dim; i++)
+   {
+    int c = 0;
+    for (int j = 0; j < totalD; j++)
     {
-        if (strcmp(t[i].departement.name, dep) == 0)
-        {
-            count++;
+        if(strcmp(t[i].departement.name , departement[j])){
+            count[j]++;
+            c =1;
+            break;
+
         }
     }
-    printf("Le nombre d etudiants dans le departement '%s' est : %d\n", dep, count);
+    if (!c)
+    {
+        strcpy(departement[i] , t[i].departement.name); 
+        count[totalD]++;
+        totalD++;
+    }
+    for (int i = 0; i < totalD; i++)
+    {
+        printf("\t\t departement %s : %d etudiants \n",departement[i],count[i]);
+
+    }
+    
+    
+    
+     
+
+   }
+   
+
 }
 
 void stat_seuil(student t[])
@@ -229,7 +252,7 @@ void stat_seuil(student t[])
 
 void note_description(float note, char description[])
 {
-    if (note >= 18)
+     if (note >= 18)
     {
         strcpy(description, "Excellent");
     }
@@ -243,7 +266,7 @@ void note_description(float note, char description[])
     }
     else if (note >= 12)
     {
-        strcpy(description, "Passable");
+        strcpy(description, "Assez Bien");
     }
     else if (note >= 10)
     {
@@ -251,7 +274,7 @@ void note_description(float note, char description[])
     }
     else
     {
-        strcpy(description, "echou");
+        strcpy(description, "Echoue");
     }
 }
 
@@ -376,7 +399,7 @@ void recherche()
 void recherche_departement()
 {
     char dep[30];
-    printf("entrez le departement");
+    printf("entrez le departement  \n");
     scanf("%s", &dep);
     for (int i = 0; i < dim; i++)
     {
@@ -489,7 +512,8 @@ int menu()
         printf("\t\t7. supression\n");
         printf("\t\t8. modification\n");
         printf("\t\t9. recherche\n");
-        printf("\t\t10. quitter \n");
+        printf("\t\t10. recherche selon departement\n");
+        printf("\t\t11. quitter \n");
         printf("\t\tEnter votre choix (1-6): ");
         scanf("%d", &choix);
 
@@ -523,7 +547,10 @@ int menu()
             recherche(t);
             break;
         case 10:
-            return 0;
+           recherche_departement(t);
+            break;
+        case 11 :
+          return 0;
         default:
             printf("\t\terreur, entrer en entier de 1 a 6.\n");
             return 0;
