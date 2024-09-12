@@ -193,42 +193,37 @@ void stat_inscris(student t[])
 
 void stat_departmt(student t[])
 {
-   char departement[100][50];
-   int count[100];
-   int totalD = 0;
+    char departement[100][50]; 
+    int count[100] = {0}; 
+    int totalD = 0; 
 
-   for (int i = 0; i < dim; i++)
-   {
-    int c = 0;
-    for (int j = 0; j < totalD; j++)
+    for (int i = 0; i < dim; i++)
     {
-        if(strcmp(t[i].departement.name , departement[j])){
-            count[j]++;
-            c =1;
-            break;
-
+        int c = 0;
+        for (int j = 0; j < totalD; j++) 
+        {
+            if (strcmp(t[i].departement.name, departement[j]) == 0)
+            {
+                count[j]++; 
+                c = 1; 
+                break;
+            }
+        }
+        if (!c) 
+        {
+            strcpy(departement[totalD], t[i].departement.name);
+            count[totalD]++;
+            totalD++; 
         }
     }
-    if (!c)
-    {
-        strcpy(departement[i] , t[i].departement.name); 
-        count[totalD]++;
-        totalD++;
-    }
+
+    
     for (int i = 0; i < totalD; i++)
     {
-        printf("\t\t departement %s : %d etudiants \n",departement[i],count[i]);
-
+        printf("\t\tDepartement %s : %d etudiants \n", departement[i], count[i]);
     }
-    
-    
-    
-     
-
-   }
-   
-
 }
+
 
 void stat_seuil(student t[])
 {
